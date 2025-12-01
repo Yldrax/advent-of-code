@@ -13,14 +13,14 @@ def load_session_cookie() -> str:
     return data["session"]
 
 
-def fetch_input(year: int, day: int) -> str:
+def fetch_input(day: int) -> str:
     """Fetch input string from Web"""
 
     headers = {"user-agent": "github.com/Yldrax/advent-of-code by yldrax@ylox.xyz"}
     cookies = {"session": f"{load_session_cookie()}"}
     try:
         r = rq.get(
-            f"https://adventofcode.com/{year}/day/{day}/input",
+            f"https://adventofcode.com/2025/day/{day}/input",
             headers=headers,
             cookies=cookies,
             timeout=5,
@@ -32,12 +32,12 @@ def fetch_input(year: int, day: int) -> str:
     return r.text
 
 
-def load_input(year: int, day: int, reload: bool = False) -> str:
+def load_input(day: int, reload: bool = False) -> str:
     """Load input from file if it exists or fetch from web"""
-    file_path = Path(f"{year}/inputs/{day:02d}.txt")
+    file_path = Path(f"2025/inputs/{day:02d}.txt")
 
     if reload or not file_path.exists():
-        input_str = fetch_input(year, day)
+        input_str = fetch_input(day)
         file_path.write_text(input_str, "utf-8")
 
     else:
@@ -47,4 +47,4 @@ def load_input(year: int, day: int, reload: bool = False) -> str:
 
 
 if __name__ == "__main__":
-    print(load_input(2024, 1, reload=True))
+    print(load_input(1, reload=True))
