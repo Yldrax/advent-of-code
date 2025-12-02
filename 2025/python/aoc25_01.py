@@ -30,13 +30,16 @@ def part2(instructions: list[str]) -> int:
         passzero, dial = divmod(dial + mult * step, 100)
 
         total += abs(passzero)
+        if start == 0 and mult == -1:
+            total -= 1
 
     return total
 
 
 def part2_force(instructions: list[str]) -> int:
-    dial = 50
+    """Modulo doesnt work so here is the naive approach"""
     total = 0
+    dial = 50
 
     for instruction in instructions:
         mult = 1 if instruction[0] == "R" else -1
@@ -46,9 +49,9 @@ def part2_force(instructions: list[str]) -> int:
             dial = dial + mult
             value -= 1
 
-            if dial < 0:
+            if dial == -1:
                 dial = 99
-            elif dial > 99:
+            elif dial == 100:
                 dial = 0
 
             if dial == 0:
@@ -59,8 +62,10 @@ def part2_force(instructions: list[str]) -> int:
 
 if __name__ == "__main__":
     INPUT = load_input(1).splitlines()
+
     print("Part 1: ")
     print(part1(INPUT))
+
     print("Part 2:")
     print(part2(INPUT))
     print(part2_force(INPUT))
