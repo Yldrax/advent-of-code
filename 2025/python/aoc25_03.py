@@ -1,7 +1,8 @@
 """Third Day"""
 
-from inputs import load_input
 from typing import Dict
+from inputs import load_input
+
 
 # PART 1
 
@@ -38,7 +39,8 @@ def calc_joltage2(bank: str) -> int:
         digits[digitnum] = int(max(bank[indices[digitnum - 1] + 1 : -(11 - digitnum)]))
         indices[digitnum] = (
             indices[digitnum - 1]
-            + int(bank[indices[digitnum - 1] :].index(str(digits[digitnum])))
+            + 1
+            + int(bank[indices[digitnum - 1] + 1 :].index(str(digits[digitnum])))
         )  # .index(...) gives Index of the sliced list so the index before has to be added
 
     digits[11] = int(max(bank[indices[11 - 1] + 1 :]))
